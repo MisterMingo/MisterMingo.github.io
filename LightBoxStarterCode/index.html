@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ms Wear's Barn</title>
+    <link rel="stylesheet" href="lightbox.css">
+    <script src="lightbox.js"></script>
+  </head>
+  <body>
+    <!-- page content -->	
+   <h1>Ms Wear's Barn</h1>
+	<img src="images/barn.jpg" alt="super epic barn texture" id="background">
+
+	
+	<div id="main">
+	<img class="thumb" src="images/arabian-thumb.jpg" alt="horse cantering" onclick="displayLightBox('arabian.jpg', 'horse cantering')">
+	<img class="thumb" src="images/dog-thumb.jpg" alt="lab puppy being cute" onclick="displayLightBox('dog.jpg', 'lab puppy being cute')">
+	<img class="thumb" src="images/horse-thumb.jpg" alt="brown horse running through a field" onclick="displayLightBox('horse.jpg', 'brown horse running through a field')">
+	<img class="thumb" src="images/horseandpony-thumb.jpg" alt="horse and a pony running together" onclick="displayLightBox('horseandpony.jpg', 'horse and a pony running together')">
+	<img class="thumb" src="images/pinto-thumb.jpg" alt="strange shaped pinto bean" onclick="displayLightBox('pinto.jpg', 'strange shaped pinto bean')">
+	<img class="thumb" src="images/tb-thumb.jpg" alt="tba. check in later for more information" onclick="displayLightBox('tb.jpg', 'tba. check in later for more information')">
+	
+	</div>
+	
+	<div id="lightbox" class="hidden"></div>
+	
+	<div id="positionBigImage">
+	
+		<div id="boundaryBigImage" class="hidden">
+			<img id="x" src="images/x.png" alt="close" onclick="displayLightBox('','')">
+			<img id="bigImage" src="images/arabian.jpg" alt="horse cantering">
+		
+		</div>
+		
+	</div>
+		
+	
+	
+	</body>
+</html>
