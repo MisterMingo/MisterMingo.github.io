@@ -1,0 +1,48 @@
+/*  
+#f9f9f9 white
+#ffe0ac orange
+#ffacb7 pink
+#6886c5 blue
+#ff6363 strong red
+https://colorhunt.co/palette/181131
+*/
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@800&display=swap');
+
+.titletext {
+	text-align: center;
+	color: #2a7886;
+	font-family: 'Maven Pro', sans-serif;
+	font-size: 2.5em;
+}
+
+
+.box {
+	height: 175px;
+	width: 175px;
+	background-color: #f9f9f9;
+	display: inline-block;
+	margin: 10px;
+	vertical-align: top;
+	text-align: center;
+	line-height: 175px;
+	font-size: 100px;
+	color: black;
+	font-family: 'Maven Pro', sans-serif;
+	
+	
+}
+#main {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	height: 595px;
+	width: 595px;
+	background-color:#79bac1;
+	padding: 10px;
+	border: 16px solid #2a7886;
+	
+}
+
+body {
+	background-color:#79bac1;
+}
