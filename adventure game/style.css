@@ -1,0 +1,102 @@
+body {
+	background-color: white;
+}
+
+#gameBoard {
+	border: 1px solid black;
+	display: grid;
+	grid-template-columns: 120px 120px 120px 120px 120px;
+	grid-template-rows: 120px 120px 120px 120px 120px;
+	justify-content: center;
+	width: 600px;
+	height: 600px;
+	
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#gameBoard div{
+	background-color: #1c1c1c;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.rider {
+	background-image: url("images/manOnMars.png");
+}
+.riderMars {
+	background-image: url("images/mars.png");
+}
+
+.tree {
+	background-image: url("images/blackhole.png");
+}
+.flag {
+	background-image: url("images/earth.png");
+}
+.rock {
+	background-image: url("images/nebula.png");
+}
+.water {
+	background-image: url("images/aliens.png");
+}
+
+.obstacle {
+	background-image: url("images/obstacle.png");
+}
+ 
+ .spaceshipN {
+	background-image: url("images/spaceshipN.png");
+}
+ .spaceshipW {
+	background-image: url("images/spaceshipW.png");
+}
+ .spaceshipE {
+	background-image: url("images/spaceshipE.png");
+}
+ .spaceshipS {
+	background-image: url("images/spaceshipS.png");
+}
+
+.shipRiderN {
+	background-image: url("images/spaceshipmanN.png");
+}
+ .shipRiderW {
+	background-image: url("images/spaceshipmanW.png");
+}
+ .shipRiderE {
+	background-image: url("images/spaceshipmanE.png");
+}
+ .shipRiderS {
+	background-image: url("images/spaceshipmanS.png");
+}
+
+.obstacleN {
+	background-image: url("images/spaceshipObstacleN.png");
+}
+ .obstacleW {
+	background-image: url("images/spaceshipObstacleW.png");
+}
+ .obstacleE {
+	background-image: url("images/spaceshipObstacleE.png");
+}
+ .obstacleS {
+	background-image: url("images/spaceshipObstacleS.png");
+}
+
+.asteroidN {
+	background-image: url("images/asteroidN.png");
+}
+ .asteroidW {
+	background-image: url("images/asteroidW.png");
+}
+ .asteroidE {
+	background-image: url("images/asteroidE.png");
+}
+ .asteroidS {
+	background-image: url("images/asteroidS.png");
+}
+
+.bridge {
+	background-color: black !important;
+}
