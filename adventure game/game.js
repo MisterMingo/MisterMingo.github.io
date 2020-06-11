@@ -11,22 +11,204 @@ const levels = [
 	 "obstacle", "water", "", "", "rider",
 	 "animate", "bridge animate", "animate", "animate","animate",
 	 "", "water", "", "", "",
-	 "", "water","spaceshipN", "", ""]
+	 "", "water","spaceshipN", "", ""],
+	 
+	 //level 2
+	["", "water", "water", "water", "water", 
+	 "flag", "water", "", "tree", "rider",
+	 "animate", "bridge animate", "animate", "animate","animate",
+	 "", "water", "", "", "",
+	 "spaceshipN", "water","", "", ""],
 	 
 	 
 	 
  ];
  
  const gridBoxes = document.querySelectorAll("#gameBoard div");
+ const noPassObstacles = ["rock", "tree", "water"];
+ 
  var currentLevel = 0; //starting level
  var riderOn = false; //is the rider on?
- var currentLocationOfShip = 0;
+ var currentLocationOfShip = 23;
  var currentAnimation; //allows 1 animation per level
  var startPoint;
+ var widthOfBoard = 5;
  
  window.addEventListener("load", function () {
 	 loadLevel(); 
  });
+ 
+ //move horse
+ document.addEventListener("keydown", function (e) {
+	 switch (e.keyCode) {
+		case 65: // a key
+		  if (currentLocationOfShip % widthOfBoard !== 0) {
+			  tryToMove("W");
+		  }
+		  break;
+		case 87: // w key
+		  if (currentLocationOfShip - widthOfBoard >= 0){
+			  tryToMove("N");
+		  }
+		  break;
+		case 68: //d key
+		  if (currentLocationOfShip % widthOfBoard < widthOfBoard - 1) {
+			  tryToMove("E");
+		  }
+		  break;
+		case 83: //s key
+		  if (currentLocationOfShip + widthOfBoard < widthOfBoard * widthOfBoard){
+			  tryToMove("S");
+		  }
+		  break;
+	 } //switch
+ }); //event listener
+ 
+ //try to move
+ function tryToMove (direction) {
+	 
+	 //let location before move
+	 let oldLocation = currentLocationOfShip;
+	 
+	 // class of location before move
+	 let oldClassName = gridBoxes[oldLocation].className;
+	 
+	 let nextLocation = 0; // location we wish to move to
+	 let nextClass = "";   //class of location we wish to move to
+	 
+	 let nextLocation2 = 0;
+	 let nextClass2 = 0;
+	 
+	 let newClass = "";    // new class to switch to if move successful
+	 
+	 
+  switch (direction) {
+	 case "W": 
+	 nextLocation = currentLocationOfShip - 1;
+	 break;
+	 case "E":
+	  nextLocation = currentLocationOfShip + 1;
+	 break;
+	 case "S":
+	 nextLocation = currentLocationOfShip + widthOfBoard;
+	 break;
+	 case "N":
+	 nextLocation = currentLocationOfShip - widthOfBoard;
+	 break;
+  }//switch
+	 
+	 nextClass = gridBoxes[nextLocation].className;
+	 
+	 //if the obstacle is not passable, don't move
+	 if (noPassObstacles.includes (nextClass)) {return;}
+	 
+	 // if it's a fence, and there is no rider, don't move
+	 if (!riderOn && nextClass.includes("obstacle")) {return;}
+	 
+	 // if there is a fence, and the rider is on, move two spaces with animation
+	 if (nextClass.includes("obstacle")) {
+		 
+		 // rider must be on to jump the fence
+		 if (riderOn) {
+			 gridBoxes[currentLocationOfShip].className = "";
+			 oldClassName = gridBoxes[nextLocation].className;
+			 
+			 // set values according to direction
+			 if (direction == "W") {
+				 nextClass = "obstacleW";
+				 nextClass2 = "shipRiderW";
+				 nextLocation2 = nextLocation - 1;
+			 } else if (direction == "E") {
+				 nextClass = "obstacleE";
+				 nextClass2 = "shipRiderE";
+				 nextLocation2 = nextLocation + 1;
+			 } else if (direction == "N") {
+				 nextClass = "obstacleN";
+				 nextClass2 = "shipRiderN";
+				 nextLocation2 = nextLocation - widthOfBoard;
+			 } else if (direction == "S"){
+				 nextClass = "obstacleS";
+				 nextClass2 = "shipRiderS";
+				 nextLocation2 = nextLocation + widthOfBoard;
+			 }
+			 
+			 // show horse jumping
+			 gridBoxes[nextLocation].className = nextClass;
+			 
+			 setTimeout(function() {
+				 
+			// set jump back to just a fence
+			gridBoxes[nextLocation].className = oldClassName;
+				 
+			// update current location of the horse
+			currentLocationOfShip = nextLocation2;
+				 
+			// get class of box after jump
+			nextClass = gridBoxes[currentLocationOfShip].className;
+				 
+			// show horse and rider on other side of fence
+			gridBoxes[currentLocationOfShip].className = nextClass2;
+				 
+			// if next box is flag, go up a level
+			levelUp(nextClass);
+				 
+				 
+			 }, 350);
+			 return;
+		 } // if rider on
+		 
+	 }// if class has fence 
+	 
+	 
+	 
+	 // if there is a rider, add rider
+	 if ( nextClass == "rider") {
+		 riderOn = true;
+	 }
+	 
+	 // if there is a bridge in the old location keep it
+	 if (oldClassName.includes("bridge")) {
+		 gridBoxes[oldLocation].className = "bridge"; 
+	 } else {
+		 gridBoxes[oldLocation].className = "";
+	 } //else
+	 
+	 // build name of new class
+	 newClass = (riderOn) ? "shipRider" : "spaceship";
+	 newClass += direction;
+	 
+	 // if there is a bridge in the next location, keep it
+	 if (gridBoxes[nextLocation].classList.contains("bridge")) {
+		 newClass += " bridge";
+	 }
+	 
+	 // move 1 spaces
+	 currentLocationOfShip = nextLocation;
+	 gridBoxes[currentLocationOfShip].className = newClass;
+	 
+	 // if it is an enemy, end the gameBoard
+	 if (nextClass.includes("asteroid")) {
+		 document.getElementById("lose").style.display = "block";
+		 return;
+	 }
+	 
+	 // if we hit a flag, move up a level
+	 levelUp(nextClass);
+	 
+ }//try to move
+ 
+ //move up one level
+ function levelUp(nextClass) {
+	 if(nextClass == "flag" && riderOn) {
+		 document.getElementById("levelup").style.display = "block";
+		 clearTimeout(currentAnimation);
+		 setTimeout (function() {
+		   document.getElementById("levelup").style.display = "none";
+		   currentLevel++;
+		   loadLevel();
+		 }, 1000);
+	 }
+ }
  
  //load level 0 - max level
  function loadLevel () {
@@ -42,7 +224,8 @@ const levels = [
 	 }//for
 	 
 	 animateBoxes = document.querySelectorAll(".animate");
-	 startPoint = 2;
+	  if (currentLevel == 0) {startPoint = 2;}
+	  if (currentLevel == 1) {startPoint = 4;}
 	 animateEnemy(animateBoxes, startPoint, "left");
 	 
 	 
