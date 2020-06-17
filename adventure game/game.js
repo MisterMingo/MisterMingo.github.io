@@ -220,9 +220,16 @@ const levels = [
  //move up one level
 function levelUp(nextClass) {
 	 if(nextClass == "flag" && riderOn ) {
-		 
-		 if (currentLevel == 4) {
+		 currentLevel++;
+		
+		if (currentLevel == 4) {
+			
+			document.getElementById("win").style.display = "block";
+			setTimeout (function() {
+				document.getElementById("win").style.display = "none";
+			 console.log("225");
 			 menu(); 
+			}, 1000);
 			 return;
 		 }
 		 
@@ -230,7 +237,6 @@ function levelUp(nextClass) {
 		 clearTimeout(currentAnimation);
 		 setTimeout (function() {
 		   document.getElementById("levelup").style.display = "none";
-		   currentLevel++;
 		   loadLevel();
 		 }, 1000);
 	 }//if
@@ -285,9 +291,30 @@ function levelUp(nextClass) {
 		}//if 
     }//for
    
+   
+   if(direction == "right") {
+	   
+	   //wrap around right side if edge hit
+	   if(index == boxes.length -1) {
+		   index =0;
+	   } else {
+		   index++;
+	   }
+   } else {
+	   
+	   //wrap around left side if edge hit
+	   if ( index == 0) {
+		   index = boxes.length - 1;
+	   } else {
+		   index--;
+	   }
+   }
+   
+   
+   
    //moving right
-   if( direction == "right") {
-	   //turn around if hit right side
+  /* if( direction == "right") {
+	   turn around if hit right side
 	   if (index == boxes.length - 1) {
 		   index --;
 		   direction = "left";
@@ -302,10 +329,10 @@ function levelUp(nextClass) {
 			index = startPoint;
 			direction = "left";	
 		} else {
-			index--;
-		}
+			index--; 
+		} **/
 			
-	}//else
+	//else
 		if (tf) {
 				 gridBoxes[marsLocation].className = "riderMars";
 				 tf = false;
