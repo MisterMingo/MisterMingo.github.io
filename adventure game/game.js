@@ -20,6 +20,12 @@ const levels = [
 	 "", "water", "", "", "",
 	 "spaceshipN", "water","", "", ""],
 	 
+	 //level 3
+	["flag", "tree", "rock", "water", "spaceshipN", 
+	 "", "rock", "", "water", "",
+	 "", "obstacle", "", "bridge animate","",
+	 "", "water", "rider", "water", "",
+	 "", "rock","rock", "water", ""],
 	 
 	 
  ];
@@ -33,6 +39,9 @@ const levels = [
  var currentAnimation; //allows 1 animation per level
  var startPoint;
  var widthOfBoard = 5;
+ var marsLocation = 0;
+ var tf = false;
+ var jumping = false;
  
  window.addEventListener("load", function () {
 	 loadLevel(); 
@@ -40,6 +49,7 @@ const levels = [
  
  //move horse
  document.addEventListener("keydown", function (e) {
+	 if (!jumping) {
 	 switch (e.keyCode) {
 		case 65: // a key
 		  if (currentLocationOfShip % widthOfBoard !== 0) {
@@ -62,10 +72,11 @@ const levels = [
 		  }
 		  break;
 	 } //switch
+   }
  }); //event listener
  
  //try to move
- function tryToMove (direction) {
+ async function tryToMove (direction) {
 	 
 	 //let location before move
 	 let oldLocation = currentLocationOfShip;
@@ -110,6 +121,7 @@ const levels = [
 		 
 		 // rider must be on to jump the fence
 		 if (riderOn) {
+			 jumping = true;
 			 gridBoxes[currentLocationOfShip].className = "";
 			 oldClassName = gridBoxes[nextLocation].className;
 			 
@@ -152,7 +164,7 @@ const levels = [
 			// if next box is flag, go up a level
 			levelUp(nextClass);
 				 
-				 
+			jumping = false;
 			 }, 350);
 			 return;
 		 } // if rider on
@@ -164,6 +176,11 @@ const levels = [
 	 // if there is a rider, add rider
 	 if ( nextClass == "rider") {
 		 riderOn = true;
+	 }
+	 
+	 // ever
+	 if ( currentLocationOfShip == marsLocation) {
+		 tf = true;
 	 }
 	 
 	 // if there is a bridge in the old location keep it
@@ -189,6 +206,9 @@ const levels = [
 	 // if it is an enemy, end the gameBoard
 	 if (nextClass.includes("asteroid")) {
 		 document.getElementById("lose").style.display = "block";
+		 await sleep(2000);
+		 document.getElementById("lose").style.display = "none";
+		 menu();
 		 return;
 	 }
 	 
@@ -198,8 +218,14 @@ const levels = [
  }//try to move
  
  //move up one level
- function levelUp(nextClass) {
-	 if(nextClass == "flag" && riderOn) {
+function levelUp(nextClass) {
+	 if(nextClass == "flag" && riderOn ) {
+		 
+		 if (currentLevel == 4) {
+			 menu(); 
+			 return;
+		 }
+		 
 		 document.getElementById("levelup").style.display = "block";
 		 clearTimeout(currentAnimation);
 		 setTimeout (function() {
@@ -207,8 +233,10 @@ const levels = [
 		   currentLevel++;
 		   loadLevel();
 		 }, 1000);
-	 }
- }
+	 }//if
+
+}// level up
+ 
  
  //load level 0 - max level
  function loadLevel () {
@@ -219,7 +247,9 @@ const levels = [
 	 //load board
 	 for (i = 0; i < gridBoxes.length; i++) {
 		 gridBoxes[i].className = levelMap[i];
-		 if (levelMap[i].includes("spaceship")) currentLocationOfShip = i; 
+		 if (levelMap[i].includes("spaceship")) currentLocationOfShip = i;
+		 if (levelMap[i].includes("rider")) marsLocation = i; 		 
+		 
 	
 	 }//for
 	 
@@ -242,7 +272,9 @@ const levels = [
 		 boxes[index].classList.add("asteroidE");
 		 
 	 } else {  
+	 console.log(index);
 	 boxes[index].classList.add("asteroidW");
+	 
 	 }//else
 		 
 	 //remove images from other boxes
@@ -274,8 +306,60 @@ const levels = [
 		}
 			
 	}//else
+		if (tf) {
+				 gridBoxes[marsLocation].className = "riderMars";
+				 tf = false;
+			} 
 		
    currentAnimation = setTimeout(function() {
 	   animateEnemy(boxes, index, direction);
    }, 750);
  }//amimateEnemy
+ 
+ function startGame() {
+	 menu();
+	 currentLevel = 0;
+	 
+	 // load level, only way it works
+	 setTimeout (function() {
+		   loadLevel();
+		 }, 1000);
+		 
+	 document.getElementById("lose").style.display = "none";
+	 
+ }
+ 
+function instructions() {
+	location.replace("menu.html");
+}
+
+function instructions2() {
+	location.replace("index.html");
+}
+
+
+/** LightBox Code **/
+
+function changeVisibility (divID) {
+	var element = document.getElementById(divID);
+	
+	//if element exists, switch its class name
+	if(element) {
+		element.className = (element.className == 'hidden')? 'unhidden': 'hidden';
+	}//if
+}//changeVisibility
+
+//display message in lighbox
+function menu() {
+	
+	//show light box
+	changeVisibility("lightbox");
+	changeVisibility("boundaryMessage");
+	
+}//show light box
+
+//close light box
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

@@ -1,5 +1,6 @@
 body {
 	background-color: white;
+	font-family: Courier, sans-serif;
 }
 
 #gameBoard {
@@ -98,7 +99,7 @@ body {
 }
 
 .bridge {
-	background-color:#1c1c1c !important;
+	background-color:#1c1c1c !important; //#1c1c1c
 }
 
 .message {
@@ -115,4 +116,171 @@ body {
 	vertical-align: top;
 	text-align: center;
 	line-height: 100vh;
+}
+
+/* Light Box CSS */
+
+#lightbox {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.7);
+
+}
+
+.hidden{
+	display:none;
+}
+
+.unhidden {
+	display: block;
+}
+
+#x {
+	position: absolute;
+	top:10px;
+	right:10px;
+	width:30px;
+	height:30px;
+	z-index:2;
+}
+
+#blackhole {
+	width:300px;
+	height:300px;
+	z-index:2;
+
+}
+
+h1 {
+	font-size: 3em;
+	
+}
+#container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+#positionMessage {
+	position: absolute;
+	top:45px;
+	left:0px;
+	width:100%
+}
+
+#boundaryMessage {
+	position:fixed;
+	margin-left: auto;
+	margin-right:auto;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	z-index: 1;
+	top: 0px;
+	left: 0px;
+	
+	
+}
+#instructionButton {
+	margin: 10px;
+	background-color: black;
+	color: white;
+	vertical-align: top;
+	text-align: center;
+	font-size: 3em;
+	border-radius: 7px;
+	border: 3px purple solid;
+	
+}
+
+#startButton {
+	margin: 20px;
+	background-color: black;
+	color: white;
+	vertical-align: top;
+	text-align: center;
+	font-size: 3em;
+	border-radius: 7px;
+	border: 3px purple solid;
+	
+}
+
+/**** Control Panel ***/
+
+.controls {
+	position: absolute;
+	top: 45px;
+	right: 150px;
+	z-index: 1;
+	display: inline-block;
+	padding:10px;
+	width: 90px;
+	height: 20px;
+	background-color: black;
+	color: white;
+	vertical-align: top;
+	text-align: center;
+	line-height: 20px;
+	font-size: 0.7em;
+	border-radius: 7px;
+	
+}
+
+/*** instruction Page **/
+
+#meteor {
+	position: fixed;
+	margin-left: 20%;
+	height: 200px;
+	width: 200px;
+
+}
+
+#mars {
+	position: fixed;
+	margin-left: 43%;
+	height: 200px;
+	width: 200px;
+}
+
+#flag {
+	position: fixed;
+	margin-left: 69%;
+	height: 200px;
+	width: 200px;
+}
+
+#meteorP {
+	position: fixed;
+	top: 270px;
+	margin-left:15%;
+	font-size: 1em;
+	
+}
+#marsP {
+	position: fixed;
+	top: 270px;
+	margin-left:40%;
+	font-size: 1em;
+	
+}
+#flagP {
+	position: fixed;
+	top: 270px;
+	margin-left:65%;
+	font-size: 1em;
+	
+}
+
+#controls {
+	position: fixed;
+	top: 500px;
+	margin-left:20%;
+	font-size: 2em;
+	
 }

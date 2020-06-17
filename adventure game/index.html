@@ -11,6 +11,10 @@
   </head>
   
   <body>
+	
+	
+	<div onclick="menu()" id="start" class="controls">Menu</div>
+
 	<div id="gameBoard"> 
 	 
 	 <div></div>
@@ -47,7 +51,25 @@
 	
 	<div class="message" id="lose">You lose</div>
 	<div class="message" id="levelup">Next Level...</div>
-   
+	<div class="message" id="win"> YOU WON </div>
+	
+	<!-- lightbox -->
+	<div id="lightbox" class="unhidden"></div>
+	
+	<div id="positionMessage">
+		<div id="boundaryMessage" class="unhidden">
+			<section id="container">
+				
+				<img id="x" src="images/x.png" alt="close" onclick="menu()"> 
+				<img id="blackhole" src="images/blackhole.png" alt="blackhole with purple ring"> 
+				<h1 class="titletext" id="message">Alberts Astronomical Adventure</h1>
+				<div onclick="startGame()" id="startButton" >Start Game</div>
+				<div onclick="instructions()" id="instructionButton">Instructions</div>
+				
+			</section>
+		</div>
+	</div>
+
     <script src="game.js"></script>
   </body>
   
