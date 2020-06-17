@@ -23,7 +23,7 @@ const levels = [
 	 //level 3
 	["flag", "tree", "rock", "water", "spaceshipN", 
 	 "", "rock", "", "water", "",
-	 "", "obstacle", "", "bridge animate","",
+	 "", "obstacle", "", "","",
 	 "", "water", "rider", "water", "",
 	 "", "rock","rock", "water", ""],
 	 
@@ -43,9 +43,7 @@ const levels = [
  var tf = false;
  var jumping = false;
  
- window.addEventListener("load", function () {
-	 loadLevel(); 
- });
+
  
  //move horse
  document.addEventListener("keydown", function (e) {
@@ -209,6 +207,7 @@ const levels = [
 		 await sleep(2000);
 		 document.getElementById("lose").style.display = "none";
 		 menu();
+		 instructions2();
 		 return;
 	 }
 	 
@@ -228,7 +227,8 @@ function levelUp(nextClass) {
 			setTimeout (function() {
 				document.getElementById("win").style.display = "none";
 			 console.log("225");
-			 menu(); 
+			 menu();
+			 instructions2();
 			}, 1000);
 			 return;
 		 }
@@ -279,7 +279,7 @@ function levelUp(nextClass) {
 		 
 	 } else {  
 	 console.log(index);
-	 boxes[index].classList.add("asteroidW");
+	 if(boxes[index])boxes[index].classList.add("asteroidW");
 	 
 	 }//else
 		 
@@ -309,30 +309,7 @@ function levelUp(nextClass) {
 		   index--;
 	   }
    }
-   
-   
-   
-   //moving right
-  /* if( direction == "right") {
-	   turn around if hit right side
-	   if (index == boxes.length - 1) {
-		   index --;
-		   direction = "left";
-	   } else {
-		   index++; 
-	   }
-	   
-	   //moving left
-		} else {
-		//turn around if hit left side
-		if (index == 0) {
-			index = startPoint;
-			direction = "left";	
-		} else {
-			index--; 
-		} **/
-			
-	//else
+		// places the mars after the rider has been taken
 		if (tf) {
 				 gridBoxes[marsLocation].className = "riderMars";
 				 tf = false;
